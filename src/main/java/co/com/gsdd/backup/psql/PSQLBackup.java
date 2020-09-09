@@ -1,6 +1,7 @@
 package co.com.gsdd.backup.psql;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -56,9 +57,9 @@ public class PSQLBackup {
         QueryPSQL queryHelper = new QueryPSQL();
         if (databases.length > 0) {
             queryHelper.connectDB(psqlDto, PSQLConstants.MAIN_DB);
-            List<String> validDbs = queryHelper.getDatabasesPSQL(psqlDto, PSQLConstants.MAIN_DB);
+            List<String> validDbs = queryHelper.getDatabasesPSQL();
             iterateDbs(psqlDto, databases, schemas, queryHelper, validDbs, outputDir);
-            queryHelper.disconnectDB(psqlDto, PSQLConstants.MAIN_DB);
+            queryHelper.disconnectDB();
             log.info("Finish execution!");
         } else {
             log.error("No databases found!");
@@ -80,7 +81,7 @@ public class PSQLBackup {
     private void checkAndIterateSchemas(PSQLPropDto psqlDto, String[] schemas, QueryPSQL queryHelper, String currentDb,
             String outputDir) {
         if (BackupType.SCHEMA.name().equalsIgnoreCase(psqlDto.getType()) && Objects.nonNull(psqlDto.getSchema())) {
-            List<String> validSchemas = queryHelper.getSchemasPSQL(psqlDto, currentDb);
+            List<String> validSchemas = queryHelper.getSchemasPSQL(currentDb);
             for (String schema : schemas) {
                 if (!validSchemas.contains(schema)) {
                     log.error("Schema '{}' not found/valid", schema);
@@ -125,22 +126,20 @@ public class PSQLBackup {
             log.error(e.toString(), e);
             return false;
         } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-
-                }
-            }
-            if (isr != null) {
-                try {
-                    isr.close();
-                } catch (IOException e) {
-
-                }
-            }
+            closeQuietly(br);
+            closeQuietly(isr);
             if (p != null) {
                 p.destroy();
+            }
+        }
+    }
+
+    private void closeQuietly(Closeable resource) {
+        if (resource != null) {
+            try {
+                resource.close();
+            } catch (IOException e) {
+                // NOSONAR
             }
         }
     }
@@ -149,7 +148,7 @@ public class PSQLBackup {
         String lineRead;
         try {
             while ((lineRead = br.readLine()) != null) {
-				log.info("{}", lineRead.replaceAll("[\r\n]", ""));
+                log.info("{}", lineRead.replaceAll("[\r\n]", ""));
             }
         } catch (Exception e) {
             log.error(e.toString(), e);

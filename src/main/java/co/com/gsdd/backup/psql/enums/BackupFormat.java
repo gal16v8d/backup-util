@@ -8,11 +8,9 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 public enum BackupFormat {
 
-	CUSTOM("c", ".backup"),
-	PLAIN("p", ".sql"),
-	TAR("t", ".tar");
-	
+	CUSTOM("c", ".backup"), PLAIN("p", ".sql"), TAR("t", ".tar");
+
 	private final String command;
 	private final String extension;
-	
+
 }

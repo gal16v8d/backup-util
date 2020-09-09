@@ -6,15 +6,14 @@ import java.util.List;
 import co.com.gsdd.backup.psql.constants.PSQLConstants;
 import co.com.gsdd.backup.psql.model.PSQLPropDto;
 import co.com.gsdd.dbutil.DBConnection;
-import co.com.gsdd.property.util.PropertyUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class QueryPSQL {
 
-    private static final String PSQL_BD_QUERY_PROP = "psql.bd";
-    private static final String PSQL_SCHEMA_QUERY_PROP = "psql.schema";
-    private static final String QUERY_PROPERTIES = "/query.properties";
+    private static final String PSQL_BD_QUERY = "SELECT datname,datacl "
+            + "FROM pg_database WHERE datacl IS NULL AND datname <> 'postgres'";
+    private static final String PSQL_SCHEMA_QUERY = "SELECT nspname FROM pg_namespace";
     private static final String JDBC_FORMAT = "jdbc:postgresql://%s/%s";
 
     public void connectDB(PSQLPropDto dto, String currentDb) {
@@ -22,34 +21,31 @@ public class QueryPSQL {
                 dto.getUser(), dto.getPass());
     }
 
-    public void disconnectDB(PSQLPropDto dto, String currentDb) {
+    public void disconnectDB() {
         DBConnection.getInstance().disconnectDB();
     }
 
-    public List<String> getDatabasesPSQL(PSQLPropDto dto, String currentDb) {
+    public List<String> getDatabasesPSQL() {
         List<String> dbs = new ArrayList<>();
         try {
-            DBConnection.getInstance().setPst(DBConnection.getInstance().getCon().prepareStatement(
-                    PropertyUtils.loadPropsFromLocalFile(PSQL_BD_QUERY_PROP, QUERY_PROPERTIES, QueryPSQL.class)));
+            DBConnection.getInstance().setPst(DBConnection.getInstance().getCon().prepareStatement(PSQL_BD_QUERY));
             DBConnection.getInstance().setRs(DBConnection.getInstance().getPst().executeQuery());
             while (DBConnection.getInstance().getRs().next()) {
                 dbs.add(DBConnection.getInstance().getRs().getString(1));
             }
             log.info("dbs -> {}", dbs);
-            return dbs;
         } catch (Exception e) {
             log.error(e.toString(), e);
-            return null;
         } finally {
             DBConnection.getInstance().closeQuery();
         }
+        return dbs;
     }
 
-    public List<String> getSchemasPSQL(PSQLPropDto dto, String currentDb) {
+    public List<String> getSchemasPSQL(String currentDb) {
         List<String> schemas = new ArrayList<>();
         try {
-            DBConnection.getInstance().setPst(DBConnection.getInstance().getCon().prepareStatement(
-                    PropertyUtils.loadPropsFromLocalFile(PSQL_SCHEMA_QUERY_PROP, QUERY_PROPERTIES, QueryPSQL.class)));
+            DBConnection.getInstance().setPst(DBConnection.getInstance().getCon().prepareStatement(PSQL_SCHEMA_QUERY));
             DBConnection.getInstance().setRs(DBConnection.getInstance().getPst().executeQuery());
             while (DBConnection.getInstance().getRs().next()) {
                 String result = DBConnection.getInstance().getRs().getString(1);
@@ -58,13 +54,12 @@ public class QueryPSQL {
                 }
             }
             log.info("currentdb {} schemas -> {}", currentDb, schemas);
-            return schemas;
         } catch (Exception e) {
             log.error(e.toString(), e);
-            return null;
         } finally {
             DBConnection.getInstance().closeQuery();
         }
+        return schemas;
     }
 
     public boolean validateSchema(String name) {

@@ -27,6 +27,7 @@
 		<mvn.surefire.plugin.version>3.0.0-M4</mvn.surefire.plugin.version>
 		<mvn.javadoc.plugin.version>3.1.1</mvn.javadoc.plugin.version>
 		<mvn.format.plugin.version>2.10.0</mvn.format.plugin.version>
+		<mvn.dependency.plugin.version>3.1.1</mvn.dependency.plugin.version>
 		<mvn.source.plugin.version>3.2.0</mvn.source.plugin.version>
 
 		<!-- If true skips UT test execution -->
@@ -227,6 +228,24 @@
 						<goals>
 							<goal>format</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${mvn.dependency.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>lombok</includeArtifactIds>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
