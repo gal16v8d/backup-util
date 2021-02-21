@@ -139,7 +139,7 @@ public class PSQLBackup {
             try {
                 resource.close();
             } catch (IOException e) {
-                // NOSONAR
+                log.debug("Error while closing resources", e);
             }
         }
     }
