@@ -23,7 +23,7 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<mvn.compiler.plugin.version>3.8.1</mvn.compiler.plugin.version>
-		<mvn.jacoco.plugin.version>0.8.5</mvn.jacoco.plugin.version>
+		<mvn.jacoco.plugin.version>0.8.7</mvn.jacoco.plugin.version>
 		<mvn.failsafe.plugin.version>3.0.0-M4</mvn.failsafe.plugin.version>
 		<mvn.surefire.plugin.version>3.0.0-M4</mvn.surefire.plugin.version>
 		<mvn.javadoc.plugin.version>3.1.1</mvn.javadoc.plugin.version>
@@ -42,7 +42,7 @@
 		<jacoco.it.exec>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.exec>
 		<jacoco.it.reportPath>${project.build.directory}/coverage-reports/jacoco-it</jacoco.it.reportPath>
 
-		<lombok.version>1.18.20</lombok.version>
+		<lombok.version>1.18.22</lombok.version>
 		<junit.version>5.7.2</junit.version>
 		<postgresql.version>42.2.12</postgresql.version>
 		<slf4j.version>1.7.32</slf4j.version>
