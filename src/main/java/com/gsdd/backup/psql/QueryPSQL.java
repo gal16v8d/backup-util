@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.gsdd.backup.psql.constants.PSQLConstants;
 import com.gsdd.backup.psql.model.PSQLPropDto;
-import co.com.gsdd.dbutil.DBConnection;
+import com.gsdd.dbutil.DBConnection;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

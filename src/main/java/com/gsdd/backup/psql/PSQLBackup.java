@@ -15,7 +15,7 @@ import com.gsdd.backup.psql.constants.PSQLConstants;
 import com.gsdd.backup.psql.enums.BackupFormat;
 import com.gsdd.backup.psql.enums.BackupType;
 import com.gsdd.backup.psql.model.PSQLPropDto;
-import co.com.gsdd.property.util.PropertyUtils;
+import com.gsdd.property.util.PropertyUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
