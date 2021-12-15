@@ -9,10 +9,10 @@ import lombok.Getter;
 public enum BackupFormat {
 
   //@formatter:off
-	CUSTOM("c", ".backup"), 
-	PLAIN("p", ".sql"), 
-	TAR("t", ".tar");
-	//@formatter:on
+  CUSTOM("c", ".backup"), 
+  PLAIN("p", ".sql"), 
+  TAR("t", ".tar");
+  //@formatter:on
 
   private final String command;
   private final String extension;
