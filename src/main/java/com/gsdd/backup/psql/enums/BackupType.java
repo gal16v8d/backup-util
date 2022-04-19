@@ -1,5 +1,8 @@
 package com.gsdd.backup.psql.enums;
 
 public enum BackupType {
-  FULL, SCHEMA, STRUCTURE, TABLE;
+    FULL,
+    SCHEMA,
+    STRUCTURE,
+    TABLE;
 }
