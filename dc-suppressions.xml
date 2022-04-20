@@ -1,10 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
-   <suppress>
-      <notes><![CDATA[
-      file name: docker-config-util-2.0.1.jar
-      ]]></notes>
-      <packageUrl regex="true">^pkg:maven/com\.gsdd/docker\-config\-util@.*$</packageUrl>
-      <cpe>cpe:/a:docker:docker</cpe>
-   </suppress>
 </suppressions>
