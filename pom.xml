@@ -29,7 +29,7 @@
 		<mvn.javadoc.plugin.version>3.3.2</mvn.javadoc.plugin.version>
 		<mvn.spotless.plugin.version>2.22.1</mvn.spotless.plugin.version>
 		<mvn.checkstyle.plugin.version>3.1.2</mvn.checkstyle.plugin.version>
-		<mvn.dependency-check.plugin.version>7.0.4</mvn.dependency-check.plugin.version>
+		<mvn.dependency-check.plugin.version>7.1.0</mvn.dependency-check.plugin.version>
 		<mvn.dependency.plugin.version>3.3.0</mvn.dependency.plugin.version>
 		<mvn.source.plugin.version>3.2.1</mvn.source.plugin.version>
 
