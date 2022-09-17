@@ -5,6 +5,8 @@ import com.gsdd.backup.psql.model.PSQLPropDto;
 import com.gsdd.dbutil.DBConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -14,6 +16,9 @@ public class QueryPSQL {
       "SELECT datname,datacl " + "FROM pg_database WHERE datacl IS NULL AND datname <> 'postgres'";
   private static final String PSQL_SCHEMA_QUERY = "SELECT nspname FROM pg_namespace";
   private static final String JDBC_FORMAT = "jdbc:postgresql://%s/%s";
+  
+  Predicate<String> validateSchema = name -> !Objects.isNull(name)
+      && !name.startsWith(PSQLConstants.PG_SCHEMA) && !name.equals(PSQLConstants.INFO_SCHEMA);
 
   public void connectDB(PSQLPropDto dto, String currentDb) {
     DBConnection.getInstance()
@@ -54,7 +59,7 @@ public class QueryPSQL {
       DBConnection.getInstance().setRs(DBConnection.getInstance().getPst().executeQuery());
       while (DBConnection.getInstance().getRs().next()) {
         String result = DBConnection.getInstance().getRs().getString(1);
-        if (validateSchema(result)) {
+        if (validateSchema.test(result)) {
           schemas.add(result);
         }
       }
@@ -66,8 +71,5 @@ public class QueryPSQL {
     }
     return schemas;
   }
-
-  public boolean validateSchema(String name) {
-    return !name.startsWith(PSQLConstants.PG_SCHEMA) && !name.equals(PSQLConstants.INFO_SCHEMA);
-  }
+  
 }
