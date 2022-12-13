@@ -25,41 +25,66 @@ public class PSQLBackup {
     PSQLPropDto psqlDto = new PSQLPropDto();
     psqlDto.setDriverclass(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.driverclass", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.driverclass",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setDbName(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.dbname", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.dbname",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setPgbin(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.bindir", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.bindir",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setHost(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.host", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.host",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setPort(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.port", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.port",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setUser(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.user", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.user",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setPass(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.pass", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.pass",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setFormat(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.format", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.format",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setType(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.type", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.type",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setSchema(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.schema", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.schema",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     psqlDto.setTables(
         PropertyUtils.loadPropsFromLocalFile(
-            "backup.bd.tables", BackupConstants.CONNECTION_PROPS, PSQLBackup.class));
+            "backup.bd.tables",
+            BackupConstants.CONNECTION_PROPS,
+            PSQLBackup.class));
     String outputDir =
-        Optional.ofNullable(
+        Optional
+            .ofNullable(
                 PropertyUtils.loadPropsFromLocalFile(
-                    "backup.bd.output", BackupConstants.CONNECTION_PROPS, PSQLBackup.class))
+                    "backup.bd.output",
+                    BackupConstants.CONNECTION_PROPS,
+                    PSQLBackup.class))
             .orElseGet(() -> System.getProperty("user.home"));
     new PSQLBackup().setUpBackup(psqlDto, outputDir);
   }
@@ -80,13 +105,8 @@ public class PSQLBackup {
     return true;
   }
 
-  private void iterateDbs(
-      PSQLPropDto psqlDto,
-      String[] databases,
-      String[] schemas,
-      QueryPSQL queryHelper,
-      List<String> validDbs,
-      String outputDir) {
+  private void iterateDbs(PSQLPropDto psqlDto, String[] databases, String[] schemas,
+      QueryPSQL queryHelper, List<String> validDbs, String outputDir) {
     for (String currentDb : databases) {
       if (!validDbs.contains(currentDb)) {
         log.error("Database '{}' not found/valid", currentDb);
@@ -96,12 +116,8 @@ public class PSQLBackup {
     }
   }
 
-  private void checkAndIterateSchemas(
-      PSQLPropDto psqlDto,
-      String[] schemas,
-      QueryPSQL queryHelper,
-      String currentDb,
-      String outputDir) {
+  private void checkAndIterateSchemas(PSQLPropDto psqlDto, String[] schemas, QueryPSQL queryHelper,
+      String currentDb, String outputDir) {
     if (BackupType.SCHEMA.name().equalsIgnoreCase(psqlDto.getType())
         && Objects.nonNull(psqlDto.getSchema())) {
       List<String> validSchemas = queryHelper.getSchemasPSQL(currentDb);
@@ -178,8 +194,8 @@ public class PSQLBackup {
     }
   }
 
-  public List<String> buildCommand(
-      PSQLPropDto psqlDto, String currentDB, String currentSchema, String outputDir) {
+  public List<String> buildCommand(PSQLPropDto psqlDto, String currentDB, String currentSchema,
+      String outputDir) {
     List<String> commandList = new ArrayList<>();
     String backupName = currentDB;
     commandList.add(psqlDto.getPgbin() + PSQLConstants.PG_DUMP);
@@ -217,12 +233,8 @@ public class PSQLBackup {
     commandList.add(PSQLConstants.VERBOSE);
     commandList.add(PSQLConstants.FILE);
     commandList.add(
-        outputDir
-            + File.separator
-            + backupName
-            + BackupConstants.UNDER_SCORE
-            + getDateTimeForBackup()
-            + backupFormat.getExtension());
+        outputDir + File.separator + backupName + BackupConstants.UNDER_SCORE
+            + getDateTimeForBackup() + backupFormat.getExtension());
     commandList.add(psqlDto.getDbName());
     return commandList;
   }
