@@ -41,10 +41,10 @@
 		<checkstyle.version>10.1</checkstyle.version>
 
 		<lombok.version>1.18.24</lombok.version>
-		<junit.version>5.9.0</junit.version>
-		<postgresql.version>42.5.0</postgresql.version>
+		<junit.version>5.9.1</junit.version>
+		<postgresql.version>42.5.1</postgresql.version>
 		<slf4j.version>1.7.36</slf4j.version>
-		<log4j.version>2.18.0</log4j.version>
+		<log4j.version>2.19.0</log4j.version>
 		<property-util.version>2.0.1</property-util.version>
 		<db-util.version>2.0.1</db-util.version>
 	</properties>
