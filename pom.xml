@@ -10,7 +10,7 @@
 	</parent>
 	
 	<artifactId>backup-util</artifactId>
-	<version>2.1.1</version>
+	<version>2.1.2</version>
 	<packaging>jar</packaging>
 
 	<name>backup-util</name>
@@ -25,7 +25,7 @@
 		<!-- If true skips IT test execution -->
 		<skip.integration.tests>false</skip.integration.tests>
 		
-		<postgresql.version>42.5.1</postgresql.version>
+		<postgresql.version>42.5.5</postgresql.version>
 		<property-util.version>2.1.0</property-util.version>
 		<db-util.version>2.1.1</db-util.version>
 	</properties>
