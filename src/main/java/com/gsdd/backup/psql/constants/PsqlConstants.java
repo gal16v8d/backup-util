@@ -1,10 +1,9 @@
 package com.gsdd.backup.psql.constants;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class PSQLConstants {
+@UtilityClass
+public final class PsqlConstants {
 
   public static final String PG_DUMP = "pg_dump";
   public static final String MAIN_DB = "postgres";

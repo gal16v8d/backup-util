@@ -1,9 +1,15 @@
 package com.gsdd.backup.psql.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class PSQLPropDto {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PsqlPropDto {
 
   private String driverclass;
   private String host;

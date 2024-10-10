@@ -1,9 +1,8 @@
 package com.gsdd.backup.constants;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public final class BackupConstants {
 
   public static final String CONNECTION_PROPS = "/connection.properties";
