@@ -23,7 +23,7 @@ public class PsqlBackup {
 
   public static void main(String[] args) {
     PsqlPropDto psqlDto = new PsqlPropDto();
-    psqlDto.setDriverclass(
+    psqlDto.setDriverClass(
         PropertyUtils.loadPropsFromLocalFile(
             "backup.bd.driverclass",
             BackupConstants.CONNECTION_PROPS,
@@ -33,7 +33,7 @@ public class PsqlBackup {
             "backup.bd.dbname",
             BackupConstants.CONNECTION_PROPS,
             PsqlBackup.class));
-    psqlDto.setPgbin(
+    psqlDto.setPgBin(
         PropertyUtils.loadPropsFromLocalFile(
             "backup.bd.bindir",
             BackupConstants.CONNECTION_PROPS,
@@ -89,7 +89,7 @@ public class PsqlBackup {
     new PsqlBackup().setUpBackup(psqlDto, outputDir);
   }
 
-  public boolean setUpBackup(PsqlPropDto psqlDto, String outputDir) {
+  private void setUpBackup(PsqlPropDto psqlDto, String outputDir) {
     String[] databases = readPropArray(psqlDto.getDbName());
     String[] schemas = readPropArray(psqlDto.getSchema());
     QueryPsql queryHelper = new QueryPsql();
@@ -102,7 +102,6 @@ public class PsqlBackup {
     } else {
       log.error("No databases found!");
     }
-    return true;
   }
 
   private void iterateDbs(PsqlPropDto psqlDto, String[] databases, String[] schemas,
@@ -198,7 +197,7 @@ public class PsqlBackup {
       String outputDir) {
     List<String> commandList = new ArrayList<>();
     String backupName = currentDB;
-    commandList.add(psqlDto.getPgbin() + PsqlConstants.PG_DUMP);
+    commandList.add(psqlDto.getPgBin() + PsqlConstants.PG_DUMP);
     commandList.add(PsqlConstants.HOST);
     commandList.add(psqlDto.getHost());
     commandList.add(PsqlConstants.PORT);

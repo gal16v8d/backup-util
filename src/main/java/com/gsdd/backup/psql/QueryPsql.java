@@ -12,8 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class QueryPsql {
 
-  private static final String PSQL_BD_QUERY =
-      "SELECT datname,datacl " + "FROM pg_database WHERE datacl IS NULL AND datname <> 'postgres'";
+  private static final String PSQL_BD_QUERY = """
+      SELECT datname,datacl
+      FROM pg_database
+      WHERE datacl IS NULL AND datname <> 'postgres'""";
   private static final String PSQL_SCHEMA_QUERY = "SELECT nspname FROM pg_namespace";
   private static final String JDBC_FORMAT = "jdbc:postgresql://%s/%s";
 
@@ -23,7 +25,7 @@ public class QueryPsql {
   public void connectDB(PsqlPropDto dto, String currentDb) {
     DbConnection.getInstance()
         .connectDB(
-            dto.getDriverclass(),
+            dto.getDriverClass(),
             String.format(JDBC_FORMAT, dto.getHost(), currentDb),
             dto.getUser(),
             dto.getPass());

@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PsqlPropDto {
 
-  private String driverclass;
+  private String driverClass;
   private String host;
   private String port;
   private String user;
   private String pass;
   private String dbName;
-  private String pgbin;
+  private String pgBin;
   private String format;
   private String type;
   private String schema;
